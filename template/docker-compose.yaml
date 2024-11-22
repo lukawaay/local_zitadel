@@ -1,0 +1,90 @@
+services:
+  idp:
+    restart: 'always'
+    image: 'luwaay/oidc_test_srv:latest'
+    networks:
+      - 'zitadel'
+    environment:
+      OIDC_TEST_SRV_HOST: 'idp'
+      OIDC_TEST_SRV_USER_AGENT_ENDPOINT: 'http://localhost:7123'
+      OIDC_TEST_SRV_DETAILS_FILE: '/config/idp.json'
+    ports:
+      - '7123:8080'
+    volumes:
+      - type: 'bind'
+        source: './mounts/config'
+        target: '/config'
+  
+  rs:
+    restart: 'always'
+    image: 'luwaay/zitadel_test_app'
+    networks:
+      - 'zitadel'
+    environment:
+      ZITADEL_TEST_APP_INSTANCE_DOMAIN: 'zitadelinstance.localhost'
+      ZITADEL_TEST_APP_INSTANCE_PORT: '8080'
+      ZITADEL_TEST_APP_INSTANCE_PROTOCOL: 'http'
+      ZITADEL_TEST_APP_KEY: 'XKv2Lqd7YAq13NUZVUWZEWZeruqyzViM'
+      ZITADEL_TEST_APP_CLIENT_ID: '294918516857962499'
+      ZITADEL_TEST_APP_REDIRECT_URI: 'http://localhost:9123/auth/callback'
+    ports:
+      - '9123:8080'
+  zitadel:
+    restart: 'always'
+    networks:
+      zitadel:
+        aliases:
+          - 'zitadelinstance.localhost'
+    image: 'ghcr.io/zitadel/zitadel:latest'
+    command: 'start-from-init --masterkeyFile "/config/zitadel_masterkey" --config "/config/zitadel.yaml" --steps "/config/zitadel_steps.yaml" --tlsMode disabled'
+    environment:
+      ZITADEL_DATABASE_POSTGRES_HOST: 'db'
+      ZITADEL_DATABASE_POSTGRES_PORT: 5432
+      ZITADEL_DATABASE_POSTGRES_DATABASE: 'zitadel'
+      ZITADEL_DATABASE_POSTGRES_USER_USERNAME: 'zitadel'
+      ZITADEL_DATABASE_POSTGRES_USER_PASSWORD: 'zitadel'
+      ZITADEL_DATABASE_POSTGRES_USER_SSL_MODE: 'disable'
+      ZITADEL_DATABASE_POSTGRES_ADMIN_USERNAME: 'postgres'
+      ZITADEL_DATABASE_POSTGRES_ADMIN_PASSWORD: 'postgres'
+      ZITADEL_DATABASE_POSTGRES_ADMIN_SSL_MODE: 'disable'
+      ZITADEL_EXTERNALSECURE: false
+    depends_on:
+      db:
+        condition: 'service_healthy'
+    ports:
+      - '8080:8080'
+    volumes:
+      - type: 'bind'
+        source: './mounts/config'
+        target: '/config'
+  db:
+    restart: 'always'
+    image: 'postgres:16-alpine'
+    environment:
+      PGUSER: 'postgres'
+      POSTGRES_PASSWORD: 'postgres'
+    networks:
+      - 'zitadel'
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready', '-d', 'zitadel', '-U', 'postgres']
+      interval: '10s'
+      timeout: '30s'
+      retries: 5
+      start_period: '20s'
+    volumes:
+      - type: 'bind'
+        source: './mounts/db'
+        target: '/var/lib/postgresql/data'
+  mailhog:
+    restart: 'always'
+    image: 'mailhog/mailhog:latest'
+    environment:
+      MH_HOSTNAME: 'mailhog'
+      MH_API_BIND_ADDR: 'mailhog:8025'
+      MH_UI_BIND_ADDR: 'mailhog:8025'
+    ports:
+      - '8025:8025'
+    networks:
+      - 'zitadel'
+networks:
+  zitadel:

@@ -1,0 +1,38 @@
+{
+	"Users": [
+		{
+			"sub": "id1",
+			"preferred_username": "john",
+			"given_name": "John",
+			"family_name": "Doe",
+			"email": "john@example.com",
+			"email_verified": true,
+			"preferred_language": "EN"
+		},
+		{
+			"sub": "id2",
+			"preferred_username": "joe",
+			"given_name": "Joe",
+			"family_name": "Doe",
+			"email": "joe@example.com",
+			"email_verified": true,
+			"preferred_language": "EN"
+		}
+	],
+	"Clients": [
+		{
+			"ID": "client1",
+			"Secret": "secret1",
+			"RedirectURIs": [
+				"http://localhost:8080/ui/login/login/externalidp/callback",
+				"http://zitadelinstance.localhost:8080/ui/login/login/externalidp/callback"
+			],
+			"PostLogoutRedirectURIs": [],
+			"ApplicationType": "web",
+			"AuthMethod": "basic",
+			"ResponseTypes": ["code", "id_token", "id_token token"],
+			"GrantTypes": ["authorization_code", "refresh_token"]
+		}
+	]
+}
+

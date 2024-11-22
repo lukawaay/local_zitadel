@@ -1,0 +1,9 @@
+#!/bin/sh
+
+if [ -z "$1" ]; then
+	echo "Usage: "$0" PATH" >&2
+	exit 1
+fi
+
+mkdir -p environments
+cp -r template "$1"
