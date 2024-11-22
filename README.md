@@ -36,12 +36,12 @@ cd ENV_PATH
 ### Zitadel
 
 Available URLs:
-	* [http://localhost:8080/](http://localhost:8080/)
-	* [http://zitadelinstance.localhost:8080/](http://zitadelinstance.localhost:8080/)
+- [http://localhost:8080/](http://localhost:8080/)
+- [http://zitadelinstance.localhost:8080/](http://zitadelinstance.localhost:8080/)
 
 Admin User:
-	* Username: zitadel-admin@zitadel.localhost
-	* Password: Password1!
+- Username: `zitadel-admin@zitadel.localhost`
+- Password: `Password1!`
 
 The environment creation script will instantiate a database that will provide a
 configuration for the other services. Everything is already hooked up and ready
@@ -64,16 +64,16 @@ App URL: [http://localhost:9123](http://localhost:9123)
 ### Zitadel
 
 Files:
-	* Configuration file: `$ENV_PATH/mounts/config/zitadel.yaml`
-	* Database setup file: `$ENV_PATH/mounts/config/zitadel_steps.yaml`
-	* Master key file: `$ENV_PATH/mounts/config/zitadel_masterkey`
+- Configuration file: `$ENV_PATH/mounts/config/zitadel.yaml`
+- Database setup file: `$ENV_PATH/mounts/config/zitadel_steps.yaml`
+- Master key file: `$ENV_PATH/mounts/config/zitadel_masterkey`
 
 ### Identity Provider
 
 Files:
-	* Configuration file (users and clients): `$ENV_PATH/mounts/idp.json`
+- Configuration file (users and clients): `$ENV_PATH/mounts/idp.json`
 
 # Roadmap
 
 Planned Features:
-  * [ ] Support deployment of a local instance of the Zitadel codebase.
+- [ ] Support deployment of a local instance of the Zitadel codebase.
