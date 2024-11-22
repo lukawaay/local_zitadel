@@ -6,7 +6,7 @@ along with a few other helpful services:
 * A minimal OpenID Connect Identity Provider
   ([link](https://github.com/lukawaay/oidc_test_srv)). 
   A configuration file lets you prepare a list of users and regular
-  authorization flows are implemented where one can choose a user the want to
+  authorization flows are implemented where one can choose a user they want to
   authenticate as.
 * A minimal Zitadel application
   ([link](https://github.com/lukawaay/zitadel_test_app)).
