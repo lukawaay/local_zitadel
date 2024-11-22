@@ -27,7 +27,7 @@ ENV_PATH=./environments/foo
 
 Enter the environment and use Docker Compose to start it:
 ```
-cd ENV_PATH
+cd $ENV_PATH
 docker compose up -d
 ```
 
