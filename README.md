@@ -28,7 +28,7 @@ ENV_PATH=./environments/foo
 Enter the environment and use Docker Compose to start it:
 ```
 cd ENV_PATH
-[docker](docker) compose up -d
+docker compose up -d
 ```
 
 ## Exposed Services
