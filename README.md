@@ -8,7 +8,7 @@ along with a few other helpful services:
   A configuration file lets you prepare a list of users and regular
   authorization flows are implemented where one can choose a user the want to
   authenticate as.
-* A minimnal Zitadel application
+* A minimal Zitadel application
   ([link](https://github.com/lukawaay/zitadel_test_app)).
   It allows one to login through Zitadel and display basic information about
   their account. It also exposes an OAuth bearer token that can be used to test
@@ -43,7 +43,7 @@ Admin User:
 	* Username: zitadel-admin@zitadel.localhost
 	* Password: Password1!
 
-[The](The) environment creation script will instantiate a database that will provide a
+The environment creation script will instantiate a database that will provide a
 configuration for the other services. Everything is already hooked up and ready
 to use.
 
